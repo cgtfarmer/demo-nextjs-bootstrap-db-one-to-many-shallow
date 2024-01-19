@@ -86,7 +86,7 @@ export default class UserRepository {
 
     await DbClient.executeStatementWithParams(sql, values);
 
-    return state;
+    return user;
   }
 
   static async destroy(id) {

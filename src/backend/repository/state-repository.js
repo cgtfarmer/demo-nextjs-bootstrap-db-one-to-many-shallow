@@ -58,7 +58,7 @@ export default class StateRepository {
     const sql = `
       UPDATE states
       SET name = ?,
-          symbol = ?,
+          symbol = ?
       WHERE id = ?
     `;
 

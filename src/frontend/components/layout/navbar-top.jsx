@@ -15,6 +15,7 @@ const Component = () => {
   const links = [
     { name: 'Home', path: '/' },
     { name: 'Users', path: '/users' },
+    { name: 'States', path: '/states' },
   ];
 
   const navLinks = links.map((link) => {

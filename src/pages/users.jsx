@@ -53,6 +53,8 @@ function Page() {
         <td>{user.lastName}</td>
         <td>{user.age}</td>
         <td>{user.weight}</td>
+        <td>{user.income}</td>
+        <td>{user.stateId}</td>
         <td>
           <Link href={`/users/${user.id}`}>Show</Link>
           <span> | </span>
@@ -68,7 +70,7 @@ function Page() {
 
   return (
     <>
-      <h1 className="my-4 text-2xl">Users</h1>
+      <h1 className="display-6 my-3 mb-4">Users</h1>
 
       <Button variant="primary" href="/users/new">Create</Button>
 
@@ -80,6 +82,8 @@ function Page() {
             <th>Last Name</th>
             <th>Age</th>
             <th>Weight</th>
+            <th>Income</th>
+            <th>State ID</th>
             <th></th>
           </tr>
         </thead>
