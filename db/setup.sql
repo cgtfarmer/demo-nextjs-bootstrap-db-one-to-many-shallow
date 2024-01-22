@@ -18,6 +18,7 @@ CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   firstName VARCHAR(255),
   lastName VARCHAR(255),
+  gender VARCHAR(1),
   age INT,
   weight FLOAT,
   income FLOAT,

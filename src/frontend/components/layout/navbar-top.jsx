@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useRouter } from 'next/router';
 
 const matchesCurrentPath = (router, path) => {
@@ -14,7 +15,6 @@ const Component = () => {
 
   const links = [
     { name: 'Home', path: '/' },
-    { name: 'Users', path: '/users' },
     { name: 'States', path: '/states' },
   ];
 
@@ -39,6 +39,16 @@ const Component = () => {
       <Navbar.Collapse id="navbar-top">
         <Nav className="me-auto">
           {navLinks}
+
+          <NavDropdown title="Admin" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/admin/states">
+              States
+            </NavDropdown.Item>
+
+            <NavDropdown.Item href="/admin/users">
+              Users
+            </NavDropdown.Item>
+          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

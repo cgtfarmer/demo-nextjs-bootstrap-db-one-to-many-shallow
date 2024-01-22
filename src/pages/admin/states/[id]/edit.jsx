@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Form, Button } from 'react-bootstrap';
 
@@ -7,24 +7,48 @@ function Page() {
   const [symbol, setSymbol] = useState('');
 
   const router = useRouter();
+  const { id } = router.query;
 
-  const sendCreateStateRequest = async () => {
-    const newState = {
+  useEffect(() => {
+    const fetchState = async () => {
+      const response = await fetch(`/api/states/${id}`, {
+        method: 'GET',
+      });
+
+      console.log(response);
+
+      if (response.ok) {
+        const stateData = await response.json();
+
+        setName(stateData.name);
+        setSymbol(stateData.symbol);
+      } else {
+        console.error(response);
+      }
+    };
+
+    if (id == undefined) return;
+
+    fetchState();
+  }, [id]);
+
+  const sendUpdateStateRequest = async () => {
+    const updatedState = {
       name: name,
       symbol: symbol,
     };
 
-    const response = await fetch('/api/states', {
-      method: 'POST',
+    const response = await fetch(`/api/states/${id}`, {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newState)
+      body: JSON.stringify(updatedState)
     });
 
     if (response.ok) {
       const createdState = await response.json();
-      console.log(`Created state: ${JSON.stringify(createdState)}`);
+      console.log(`Updated state: ${JSON.stringify(createdState)}`);
 
-      router.push('/states');
+      router.push(`/states/${id}`);
     } else {
       console.error(response);
     }
@@ -32,7 +56,7 @@ function Page() {
 
   return (
     <>
-      <h1 className="display-6 my-3 mb-4">Create State</h1>
+      <h1 className="display-6 my-3 mb-4">Edit State</h1>
 
       <Form className="mt-3">
         <Form.Group controlId="name">
@@ -54,7 +78,7 @@ function Page() {
           />
         </Form.Group>
 
-        <Button className="mt-3" variant="primary" type="button" onClick={sendCreateStateRequest}>
+        <Button className="mt-3" variant="primary" type="button" onClick={sendUpdateStateRequest}>
           Submit
         </Button>
       </Form>

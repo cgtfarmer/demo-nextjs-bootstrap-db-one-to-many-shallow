@@ -35,7 +35,8 @@ test('retrieve state summary', async ({ request }) => {
   expect(stateSummaryBody.id).toBe(stateId);
   expect(stateSummaryBody.name).toBe('Nebraska');
   expect(stateSummaryBody.symbol).toBe('NE');
+  expect(stateSummaryBody.population).toBe(2);
   expect(parseInt(stateSummaryBody.avgAge)).toBe(35);
-  expect(parseInt(stateSummaryBody.avgWeight)).toBe(185);
-  expect(parseInt(stateSummaryBody.avgIncome)).toBe(50000);
+  expect(parseInt(stateSummaryBody.avgWeight)).toBe(150);
+  expect(parseInt(stateSummaryBody.avgIncome)).toBe(45000);
 });

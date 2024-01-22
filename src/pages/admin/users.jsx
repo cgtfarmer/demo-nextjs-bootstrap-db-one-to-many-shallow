@@ -51,14 +51,15 @@ function Page() {
         <td>{user.id}</td>
         <td>{user.firstName}</td>
         <td>{user.lastName}</td>
+        <td>{user.gender}</td>
         <td>{user.age}</td>
         <td>{user.weight}</td>
         <td>{user.income}</td>
         <td>{user.stateId}</td>
         <td>
-          <Link href={`/users/${user.id}`}>Show</Link>
+          <Link href={`/admin/users/${user.id}`}>Show</Link>
           <span> | </span>
-          <Link href={`/users/${user.id}/edit`}>Edit</Link>
+          <Link href={`/admin/users/${user.id}/edit`}>Edit</Link>
           <span> | </span>
           <Link href="" onClick={() => handleDelete(user.id)}>Delete</Link>
         </td>
@@ -72,7 +73,7 @@ function Page() {
     <>
       <h1 className="display-6 my-3 mb-4">Users</h1>
 
-      <Button variant="primary" href="/users/new">Create</Button>
+      <Button variant="primary" href="/admin/users/new">Create</Button>
 
       <Table responsive="md" variant='dark' striped hover className="mt-3">
         <thead>
@@ -80,6 +81,7 @@ function Page() {
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Gender</th>
             <th>Age</th>
             <th>Weight</th>
             <th>Income</th>

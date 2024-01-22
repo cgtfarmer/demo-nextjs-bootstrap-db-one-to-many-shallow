@@ -28,6 +28,8 @@ function Page() {
       }
     };
 
+    if (id == undefined) return;
+
     fetchUser();
   }, [id]);
 
@@ -40,7 +42,7 @@ function Page() {
       });
 
       if (response.ok) {
-        router.push('/users');
+        router.push('/admin/users');
       } else {
         console.error(response);
       }
@@ -53,12 +55,12 @@ function Page() {
     <>
       <h1 className="display-6 my-3 mb-4">Show User</h1>
 
-      <Link variant="dark" className="me-auto" href="/users">Back</Link>
+      <Link variant="dark" className="me-auto" href="/admin/users">Back</Link>
 
       <Spacer />
 
       <div>
-        <Link href={`/users/${id}/edit`}>Edit</Link>
+        <Link href={`/admin/users/${id}/edit`}>Edit</Link>
         <span> | </span>
         <Link href="" onClick={() => handleDelete(user.id)}>Delete</Link>
       </div>
@@ -72,6 +74,10 @@ function Page() {
           <tr>
             <th>Last Name</th>
             <td>{user.lastName}</td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td>{user.gender}</td>
           </tr>
           <tr>
             <th>Age</th>

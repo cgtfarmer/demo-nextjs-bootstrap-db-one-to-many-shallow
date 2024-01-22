@@ -18,8 +18,9 @@ class PwHelpers {
       data: {
         firstName: 'John',
         lastName: 'Doe',
-        age: 35,
-        weight: 185.3,
+        gender: 'M',
+        age: 40,
+        weight: 200,
         income: 50000.0,
         stateId: createStateBody.id,
       }
@@ -31,11 +32,12 @@ class PwHelpers {
   static async createDefaultUserWithStateId(request, stateId) {
     const createUserResponse = await request.post('/api/users', {
       data: {
-        firstName: 'John',
+        firstName: 'Jane',
         lastName: 'Doe',
-        age: 35,
-        weight: 185.3,
-        income: 50000.0,
+        gender: 'F',
+        age: 30,
+        weight: 100,
+        income: 40000.0,
         stateId: stateId
       }
     });

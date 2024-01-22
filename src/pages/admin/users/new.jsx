@@ -1,64 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Form, Button } from 'react-bootstrap';
 
 function Page() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [weight, setWeight] = useState('');
   const [income, setIncome] = useState('');
   const [stateId, setStateId] = useState('');
 
   const router = useRouter();
-  const { id } = router.query;
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch(`/api/users/${id}`, {
-        method: 'GET',
-      });
-
-      console.log(response);
-
-      if (response.ok) {
-        const userData = await response.json();
-
-        setFirstName(userData.firstName);
-        setLastName(userData.lastName);
-        setAge(userData.age);
-        setWeight(userData.weight);
-        setIncome(userData.income);
-        setStateId(userData.stateId);
-      } else {
-        console.error(response);
-      }
-    };
-
-    fetchUser();
-  }, [id]);
-
-  const sendUpdateUserRequest = async () => {
-    const updatedUser = {
+  const sendCreateUserRequest = async () => {
+    const newUser = {
       firstName: firstName,
       lastName: lastName,
+      gender: gender,
       age: age,
       weight: weight,
       income: income,
       stateId: stateId,
     };
 
-    const response = await fetch(`/api/users/${id}`, {
-      method: 'PUT',
+    const response = await fetch('/api/users', {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedUser)
+      body: JSON.stringify(newUser)
     });
 
     if (response.ok) {
       const createdUser = await response.json();
-      console.log(`Updated user: ${JSON.stringify(createdUser)}`);
+      console.log(`Created user: ${JSON.stringify(createdUser)}`);
 
-      router.push(`/users/${id}`);
+      router.push('/admin/users');
     } else {
       console.error(response);
     }
@@ -66,7 +42,7 @@ function Page() {
 
   return (
     <>
-      <h1 className="display-6 my-3 mb-4">Edit User</h1>
+      <h1 className="display-6 my-3 mb-4">Create User</h1>
 
       <Form className="mt-3">
         <Form.Group controlId="first-name">
@@ -85,6 +61,15 @@ function Page() {
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="gender" className="mt-3">
+          <Form.Label>Gender</Form.Label>
+          <Form.Control
+            type="text"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
           />
         </Form.Group>
 
@@ -124,7 +109,7 @@ function Page() {
           />
         </Form.Group>
 
-        <Button className="mt-3" variant="primary" type="button" onClick={sendUpdateUserRequest}>
+        <Button className="mt-3" variant="primary" type="button" onClick={sendCreateUserRequest}>
           Submit
         </Button>
       </Form>

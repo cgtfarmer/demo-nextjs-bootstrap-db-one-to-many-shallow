@@ -6,7 +6,7 @@ export default class StateSummaryRepository {
     console.log('[StateSummaryRepository#findAll]');
 
     const sql = `
-      SELECT S.id, S.name, S.symbol,
+      SELECT S.id, S.name, S.symbol, COUNT(U.id) population,
         AVG(U.age) avgAge, AVG(U.weight) avgWeight, AVG(U.income) avgIncome
       FROM states S
       JOIN users U ON U.stateId = S.id
@@ -26,7 +26,7 @@ export default class StateSummaryRepository {
     console.log(`[StateSummaryRepository#findById] ${id}`);
 
     const sql = `
-      SELECT S.id, S.name, S.symbol,
+      SELECT S.id, S.name, S.symbol, COUNT(U.id) population,
         AVG(U.age) avgAge, AVG(U.weight) avgWeight, AVG(U.income) avgIncome
       FROM states S
       JOIN users U ON U.stateId = S.id

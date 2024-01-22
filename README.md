@@ -15,12 +15,12 @@
 
 ### Run Playwright Tests
 
-Run: `docker-compose down; docker-compose up -d mysql; sleep 20; docker-compose run --rm app bash -c "npm install; npm run build; npm run start & sleep 5; npm run test-e2e"`
+Run: `docker-compose down; docker-compose up -d mysql; sleep 20; docker-compose run --rm app bash -c "npm install; npm run dev & sleep 5; npm run test-e2e-debug"`
 
 ## Run Playwright Tests (w/ Stack Reuse)
 
 - Leave dev stack running
-- Run in another terminal: `docker-compose exec app npm run test-e2e` (repeat as needed)
+- Run in another terminal: `docker-compose exec app npm run test-e2e-debug` (repeat as needed)
 
 ### Endpoints
 

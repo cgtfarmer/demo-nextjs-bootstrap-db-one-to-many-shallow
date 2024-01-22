@@ -1,5 +1,6 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const PwHelpers = require('./pw-helpers');
 
 test('retrieve states', async ({ request }) => {
   const response = await request.get('/api/states');
@@ -25,17 +26,8 @@ test('create state', async ({ request }) => {
 });
 
 test('retrieve state', async ({ request }) => {
-  // Create State
-  const createStateResponse = await request.post('/api/states', {
-    data: {
-      name: 'Nebraska',
-      symbol: 'NE',
-    }
-  });
+  const createStateBody = await PwHelpers.createDefaultState(request);
 
-  expect(createStateResponse.ok()).toBeTruthy();
-
-  const createStateBody = await createStateResponse.json();
   const newStateId = createStateBody.id;
 
   // Retrieve State
@@ -47,18 +39,29 @@ test('retrieve state', async ({ request }) => {
   expect(getStateBody.id).toBe(newStateId);
 });
 
+test('update state', async ({ request }) => {
+  const createStateBody = await PwHelpers.createDefaultState(request);
+
+  const inputData = {
+    id: createStateBody.id,
+    name: 'California',
+    symbol: 'CA'
+  };
+
+  // Update State
+  const response = await request.put(`/api/states/${inputData.id}`, { data: inputData });
+
+  expect(response.ok()).toBeTruthy();
+
+  const body = await response.json();
+  expect(parseInt(body.id)).toBe(inputData.id);
+  expect(body.name).toBe(inputData.name);
+  expect(body.symbol).toBe(inputData.symbol);
+});
+
 test('destroy state', async ({ request }) => {
-  // Create State
-  const createStateResponse = await request.post('/api/states', {
-    data: {
-      name: 'Nebraska',
-      symbol: 'NE',
-    }
-  });
+  const createStateBody = await PwHelpers.createDefaultState(request);
 
-  expect(createStateResponse.ok()).toBeTruthy();
-
-  const createStateBody = await createStateResponse.json();
   const newStateId = createStateBody.id;
 
   // Destroy State

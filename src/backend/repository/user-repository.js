@@ -41,13 +41,14 @@ export default class UserRepository {
     console.log(`[UserRepository#create] ${user}`);
 
     const sql = `
-      INSERT INTO users (firstName, lastName, age, weight, income, stateId)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO users (firstName, lastName, gender, age, weight, income, stateId)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
       user.firstName,
       user.lastName,
+      user.gender,
       user.age,
       user.weight,
       user.income,
@@ -67,6 +68,7 @@ export default class UserRepository {
       UPDATE users
       SET firstName = ?,
           lastName = ?,
+          gender = ?,
           age = ?,
           weight = ?,
           income = ?,
@@ -77,6 +79,7 @@ export default class UserRepository {
     const values = [
       user.firstName,
       user.lastName,
+      user.gender,
       user.age,
       user.weight,
       user.income,

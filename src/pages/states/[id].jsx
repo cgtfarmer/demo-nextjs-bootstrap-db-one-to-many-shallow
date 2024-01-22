@@ -6,6 +6,7 @@ import Spacer from '@/frontend/components/spacer';
 
 function Page() {
   const [state, setState] = useState({});
+  const [users, setUsers] = useState([]);
 
   const router = useRouter();
   const { id } = router.query;
@@ -28,51 +29,73 @@ function Page() {
       }
     };
 
+    if (id == undefined) return;
+
     fetchState();
   }, [id]);
 
-  const handleDelete = async () => {
-    const confirmation = window.confirm('Are you sure you sure ?');
-
-    if (confirmation) {
-      const response = await fetch(`/api/states/${id}`, {
-        method: 'DELETE'
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await fetch(`/api/states/${id}/users`, {
+        method: 'GET'
       });
 
       if (response.ok) {
-        router.push('/states');
+        const users = await response.json();
+        console.log(`Users: ${JSON.stringify(users)}`);
+        setUsers(users);
       } else {
         console.error(response);
       }
-    }
-  };
+    };
 
-  if (state == null) return;
+    if (id == undefined) return;
+
+    fetchUsers();
+  }, [id]);
+
+  if (state == null || users == null) return;
+
+  const rows = [];
+  for (let user of users) {
+    const key = `${user.id}`;
+
+    const row = (
+      <tr key={key}>
+        <td>{user.firstName}</td>
+        <td>{user.lastName}</td>
+        <td>{user.gender}</td>
+        <td>{user.age}</td>
+        <td>{user.weight}</td>
+        <td>{user.income}</td>
+      </tr>
+    );
+
+    rows.push(row);
+  }
 
   return (
     <>
-      <h1 className="display-6 my-3 mb-4">Show State</h1>
+      <h1 className="display-6 my-3 mb-4">{state.name} ({state.symbol})</h1>
 
       <Link variant="dark" className="me-auto" href="/states">Back</Link>
 
       <Spacer />
 
-      <div>
-        <Link href={`/states/${id}/edit`}>Edit</Link>
-        <span> | </span>
-        <Link href="" onClick={() => handleDelete(state.id)}>Delete</Link>
-      </div>
+      <Table responsive="md" variant='dark' striped hover className="mt-3">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Weight</th>
+            <th>Income</th>
+          </tr>
+        </thead>
 
-      <Table variant='dark' size="md" responsive striped hover className="show-table">
         <tbody>
-          <tr>
-            <th>Name</th>
-            <td>{state.name}</td>
-          </tr>
-          <tr>
-            <th>Symbol</th>
-            <td>{state.symbol}</td>
-          </tr>
+          {rows}
         </tbody>
       </Table>
     </>
