@@ -5,14 +5,14 @@ import Link from 'next/link';
 import Spacer from '@/frontend/components/spacer';
 
 function Page() {
-  const [user, setUser] = useState({});
+  const [resident, setResident] = useState({});
 
   const router = useRouter();
   const { id } = router.query;
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch(`/api/users/${id}`, {
+    const fetchResident = async () => {
+      const response = await fetch(`/api/residents/${id}`, {
         method: 'GET',
       });
 
@@ -20,9 +20,9 @@ function Page() {
 
       if (response.ok) {
         // console.log(await response.text());
-        const userData = await response.json();
+        const residentData = await response.json();
 
-        setUser(userData);
+        setResident(residentData);
       } else {
         console.error(response);
       }
@@ -30,62 +30,62 @@ function Page() {
 
     if (id == undefined) return;
 
-    fetchUser();
+    fetchResident();
   }, [id]);
 
   const handleDelete = async () => {
     const confirmation = window.confirm('Are you sure you sure ?');
 
     if (confirmation) {
-      const response = await fetch(`/api/users/${id}`, {
+      const response = await fetch(`/api/residents/${id}`, {
         method: 'DELETE'
       });
 
       if (response.ok) {
-        router.push('/admin/users');
+        router.push('/admin/residents');
       } else {
         console.error(response);
       }
     }
   };
 
-  if (user == null) return;
+  if (resident == null) return;
 
   return (
     <>
-      <h1 className="display-6 my-3 mb-4">Show User</h1>
+      <h1 className="display-6 my-3 mb-4">Show Resident</h1>
 
-      <Link variant="dark" className="me-auto" href="/admin/users">Back</Link>
+      <Link variant="dark" className="me-auto" href="/admin/residents">Back</Link>
 
       <Spacer />
 
       <div>
-        <Link href={`/admin/users/${id}/edit`}>Edit</Link>
+        <Link href={`/admin/residents/${id}/edit`}>Edit</Link>
         <span> | </span>
-        <Link href="" onClick={() => handleDelete(user.id)}>Delete</Link>
+        <Link href="" onClick={() => handleDelete(resident.id)}>Delete</Link>
       </div>
 
       <Table variant='dark' size="md" responsive striped hover className="show-table">
         <tbody>
           <tr>
             <th>First Name</th>
-            <td>{user.firstName}</td>
+            <td>{resident.firstName}</td>
           </tr>
           <tr>
             <th>Last Name</th>
-            <td>{user.lastName}</td>
+            <td>{resident.lastName}</td>
           </tr>
           <tr>
             <th>Gender</th>
-            <td>{user.gender}</td>
+            <td>{resident.gender}</td>
           </tr>
           <tr>
             <th>Age</th>
-            <td>{user.age}</td>
+            <td>{resident.age}</td>
           </tr>
           <tr>
             <th>Weight</th>
-            <td>{user.weight}</td>
+            <td>{resident.weight}</td>
           </tr>
         </tbody>
       </Table>

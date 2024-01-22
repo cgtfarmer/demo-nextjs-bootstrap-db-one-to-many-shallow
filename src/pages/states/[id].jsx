@@ -6,7 +6,7 @@ import Spacer from '@/frontend/components/spacer';
 
 function Page() {
   const [state, setState] = useState({});
-  const [users, setUsers] = useState([]);
+  const [residents, setResidents] = useState([]);
 
   const router = useRouter();
   const { id } = router.query;
@@ -35,15 +35,15 @@ function Page() {
   }, [id]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch(`/api/states/${id}/users`, {
+    const fetchResidents = async () => {
+      const response = await fetch(`/api/states/${id}/residents`, {
         method: 'GET'
       });
 
       if (response.ok) {
-        const users = await response.json();
-        console.log(`Users: ${JSON.stringify(users)}`);
-        setUsers(users);
+        const residents = await response.json();
+        console.log(`Residents: ${JSON.stringify(residents)}`);
+        setResidents(residents);
       } else {
         console.error(response);
       }
@@ -51,23 +51,23 @@ function Page() {
 
     if (id == undefined) return;
 
-    fetchUsers();
+    fetchResidents();
   }, [id]);
 
-  if (state == null || users == null) return;
+  if (state == null || residents == null) return;
 
   const rows = [];
-  for (let user of users) {
-    const key = `${user.id}`;
+  for (let resident of residents) {
+    const key = `${resident.id}`;
 
     const row = (
       <tr key={key}>
-        <td>{user.firstName}</td>
-        <td>{user.lastName}</td>
-        <td>{user.gender}</td>
-        <td>{user.age}</td>
-        <td>{user.weight}</td>
-        <td>{user.income}</td>
+        <td>{resident.firstName}</td>
+        <td>{resident.lastName}</td>
+        <td>{resident.gender}</td>
+        <td>{resident.age}</td>
+        <td>{resident.weight}</td>
+        <td>{resident.income}</td>
       </tr>
     );
 

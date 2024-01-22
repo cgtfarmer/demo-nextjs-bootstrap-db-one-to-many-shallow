@@ -11,10 +11,10 @@ class PwHelpers {
     return await response.json();
   }
 
-  static async createDefaultUser(request) {
+  static async createDefaultResident(request) {
     const createStateBody = await this.createDefaultState(request);
 
-    const createUserResponse = await request.post('/api/users', {
+    const createResidentResponse = await request.post('/api/residents', {
       data: {
         firstName: 'John',
         lastName: 'Doe',
@@ -26,11 +26,11 @@ class PwHelpers {
       }
     });
 
-    return await createUserResponse.json();
+    return await createResidentResponse.json();
   };
 
-  static async createDefaultUserWithStateId(request, stateId) {
-    const createUserResponse = await request.post('/api/users', {
+  static async createDefaultResidentWithStateId(request, stateId) {
+    const createResidentResponse = await request.post('/api/residents', {
       data: {
         firstName: 'Jane',
         lastName: 'Doe',
@@ -42,7 +42,7 @@ class PwHelpers {
       }
     });
 
-    return await createUserResponse.json();
+    return await createResidentResponse.json();
   };
 }
 

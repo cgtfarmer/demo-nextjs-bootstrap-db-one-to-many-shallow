@@ -1,12 +1,12 @@
-import UserRepository from '@/backend/repository/user-repository';
+import ResidentRepository from '@/backend/repository/resident-repository';
 
-export default class UserController {
+export default class ResidentController {
 
   static async index(req, res) {
     const { id } = req.query;
-    console.log(`[UserController#index] stateId=${id}`);
+    console.log(`[ResidentController#index] stateId=${id}`);
 
-    const response = await UserRepository.findAll(id);
+    const response = await ResidentRepository.findAll(id);
 
     console.log(`Response: ${JSON.stringify(response)}`);
     res.status(200).json(response);
@@ -14,9 +14,9 @@ export default class UserController {
 
   static async show(req, res) {
     const { id } = req.query;
-    console.log(`[UserController#show] ${id}`);
+    console.log(`[ResidentController#show] ${id}`);
 
-    const response = await UserRepository.findById(id);
+    const response = await ResidentRepository.findById(id);
 
     console.log(`Response: ${JSON.stringify(response)}`);
     res.status(200).json(response);
@@ -24,9 +24,9 @@ export default class UserController {
 
   static async create(req, res) {
     const data = req.body;
-    console.log(`[UserController#create] ${JSON.stringify(data)}`);
+    console.log(`[ResidentController#create] ${JSON.stringify(data)}`);
 
-    const response = await UserRepository.create(data);
+    const response = await ResidentRepository.create(data);
 
     console.log(`Response: ${JSON.stringify(response)}`);
     res.status(200).json(response);
@@ -35,11 +35,11 @@ export default class UserController {
   static async update(req, res) {
     const { id } = req.query;
     const data = req.body;
-    console.log(`[UserController#update] ${id}, ${JSON.stringify(data)}`);
+    console.log(`[ResidentController#update] ${id}, ${JSON.stringify(data)}`);
 
     data.id = id;
 
-    const response = await UserRepository.update(data);
+    const response = await ResidentRepository.update(data);
 
     console.log(`Response: ${JSON.stringify(response)}`);
     res.status(200).json(response);
@@ -47,9 +47,9 @@ export default class UserController {
 
   static async destroy(req, res) {
     const { id } = req.query;
-    console.log(`[UserController#destroy] ${id}`);
+    console.log(`[ResidentController#destroy] ${id}`);
 
-    await UserRepository.destroy(id);
+    await ResidentRepository.destroy(id);
 
     const response = { msg: 'Deleted successfully' };
 

@@ -45,8 +45,8 @@ const Component = () => {
               States
             </NavDropdown.Item>
 
-            <NavDropdown.Item href="/admin/users">
-              Users
+            <NavDropdown.Item href="/admin/residents">
+              Residents
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>

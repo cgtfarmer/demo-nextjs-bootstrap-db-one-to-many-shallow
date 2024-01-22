@@ -1,15 +1,19 @@
-import UserController from '@/backend/controller/user-controller';
+import ResidentController from '@/backend/controller/resident-controller';
 
 async function handler(req, res) {
   console.log(`==> Router: START [${req.method}] ${req.url}`);
 
   switch(req.method) {
   case 'GET':
-    await UserController.index(req, res);
+    await ResidentController.show(req, res);
     break;
 
-  case 'POST':
-    await UserController.create(req, res);
+  case 'PUT':
+    await ResidentController.update(req, res);
+    break;
+
+  case 'DELETE':
+    await ResidentController.destroy(req, res);
     break;
 
   default:

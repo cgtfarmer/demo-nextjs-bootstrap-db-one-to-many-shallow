@@ -4,37 +4,37 @@ import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 
 function Page() {
-  const [users, setUsers] = useState([]);
+  const [residents, setResidents] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch('/api/users', {
+    const fetchResidents = async () => {
+      const response = await fetch('/api/residents', {
         method: 'GET'
       });
 
       if (response.ok) {
-        const users = await response.json();
-        console.log(`Users: ${JSON.stringify(users)}`);
-        setUsers(users);
+        const residents = await response.json();
+        console.log(`Residents: ${JSON.stringify(residents)}`);
+        setResidents(residents);
       } else {
         console.error(response);
       }
     };
 
-    fetchUsers();
+    fetchResidents();
   }, []);
 
   const handleDelete = async (id) => {
     const confirmation = window.confirm('Are you sure you want to delete this?');
 
     if (confirmation) {
-      const response = await fetch(`/api/users/${id}`, {
+      const response = await fetch(`/api/residents/${id}`, {
         method: 'DELETE'
       });
 
       if (response.ok) {
-        setUsers((prevUsers) =>
-          prevUsers.filter((user) => user.id !== id)
+        setResidents((prevResidents) =>
+          prevResidents.filter((resident) => resident.id !== id)
         );
       } else {
         console.error(response);
@@ -43,25 +43,25 @@ function Page() {
   };
 
   const rows = [];
-  for (let user of users) {
-    const key = `${user.id}`;
+  for (let resident of residents) {
+    const key = `${resident.id}`;
 
     const row = (
       <tr key={key}>
-        <td>{user.id}</td>
-        <td>{user.firstName}</td>
-        <td>{user.lastName}</td>
-        <td>{user.gender}</td>
-        <td>{user.age}</td>
-        <td>{user.weight}</td>
-        <td>{user.income}</td>
-        <td>{user.stateId}</td>
+        <td>{resident.id}</td>
+        <td>{resident.firstName}</td>
+        <td>{resident.lastName}</td>
+        <td>{resident.gender}</td>
+        <td>{resident.age}</td>
+        <td>{resident.weight}</td>
+        <td>{resident.income}</td>
+        <td>{resident.stateId}</td>
         <td>
-          <Link href={`/admin/users/${user.id}`}>Show</Link>
+          <Link href={`/admin/residents/${resident.id}`}>Show</Link>
           <span> | </span>
-          <Link href={`/admin/users/${user.id}/edit`}>Edit</Link>
+          <Link href={`/admin/residents/${resident.id}/edit`}>Edit</Link>
           <span> | </span>
-          <Link href="" onClick={() => handleDelete(user.id)}>Delete</Link>
+          <Link href="" onClick={() => handleDelete(resident.id)}>Delete</Link>
         </td>
       </tr>
     );
@@ -71,9 +71,9 @@ function Page() {
 
   return (
     <>
-      <h1 className="display-6 my-3 mb-4">Users</h1>
+      <h1 className="display-6 my-3 mb-4">Residents</h1>
 
-      <Button variant="primary" href="/admin/users/new">Create</Button>
+      <Button variant="primary" href="/admin/residents/new">Create</Button>
 
       <Table responsive="md" variant='dark' striped hover className="mt-3">
         <thead>

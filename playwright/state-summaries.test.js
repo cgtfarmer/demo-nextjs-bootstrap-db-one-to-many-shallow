@@ -3,11 +3,11 @@ const { test, expect } = require('@playwright/test');
 const PwHelpers = require('./pw-helpers');
 
 test('retrieve state summaries', async ({ request }) => {
-  const createUserBody = await PwHelpers.createDefaultUser(request);
+  const createResidentBody = await PwHelpers.createDefaultResident(request);
 
-  await PwHelpers.createDefaultUserWithStateId(request, createUserBody.stateId);
+  await PwHelpers.createDefaultResidentWithStateId(request, createResidentBody.stateId);
 
-  await PwHelpers.createDefaultUser(request);
+  await PwHelpers.createDefaultResident(request);
 
   const stateSummaryResponse = await request.get('/api/states/summary');
 
@@ -19,13 +19,13 @@ test('retrieve state summaries', async ({ request }) => {
 });
 
 test('retrieve state summary', async ({ request }) => {
-  const createUserBody = await PwHelpers.createDefaultUser(request);
+  const createResidentBody = await PwHelpers.createDefaultResident(request);
 
-  const stateId = createUserBody.stateId;
+  const stateId = createResidentBody.stateId;
 
-  await PwHelpers.createDefaultUserWithStateId(request, stateId);
+  await PwHelpers.createDefaultResidentWithStateId(request, stateId);
 
-  await PwHelpers.createDefaultUser(request);
+  await PwHelpers.createDefaultResident(request);
 
   const stateSummaryResponse = await request.get(`/api/states/${stateId}/summary`);
 

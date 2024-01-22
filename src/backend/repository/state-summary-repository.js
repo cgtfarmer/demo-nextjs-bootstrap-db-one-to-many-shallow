@@ -9,7 +9,7 @@ export default class StateSummaryRepository {
       SELECT S.id, S.name, S.symbol, COUNT(U.id) population,
         AVG(U.age) avgAge, AVG(U.weight) avgWeight, AVG(U.income) avgIncome
       FROM states S
-      JOIN users U ON U.stateId = S.id
+      JOIN residents U ON U.stateId = S.id
       GROUP BY S.id
     `;
 
@@ -29,7 +29,7 @@ export default class StateSummaryRepository {
       SELECT S.id, S.name, S.symbol, COUNT(U.id) population,
         AVG(U.age) avgAge, AVG(U.weight) avgWeight, AVG(U.income) avgIncome
       FROM states S
-      JOIN users U ON U.stateId = S.id
+      JOIN residents U ON U.stateId = S.id
       WHERE S.id = ?
       GROUP BY S.id
     `;

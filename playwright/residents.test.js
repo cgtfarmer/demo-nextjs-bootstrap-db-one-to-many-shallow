@@ -2,8 +2,8 @@
 const { test, expect } = require('@playwright/test');
 const PwHelpers = require('./pw-helpers');
 
-test('retrieve users', async ({ request }) => {
-  const response = await request.get('/api/users');
+test('retrieve residents', async ({ request }) => {
+  const response = await request.get('/api/residents');
 
   expect(response.ok()).toBeTruthy();
 
@@ -11,7 +11,7 @@ test('retrieve users', async ({ request }) => {
   expect(body.length).toBeGreaterThanOrEqual(0);
 });
 
-test('create user', async ({ request }) => {
+test('create resident', async ({ request }) => {
   const createStateBody = await PwHelpers.createDefaultState(request);
 
   const inputData = {
@@ -24,7 +24,7 @@ test('create user', async ({ request }) => {
     stateId: createStateBody.id,
   };
 
-  const response = await request.post('/api/users', { data: inputData });
+  const response = await request.post('/api/residents', { data: inputData });
 
   expect(response.ok()).toBeTruthy();
 
@@ -41,11 +41,11 @@ test('create user', async ({ request }) => {
   expect(body.stateId).toBe(createStateBody.id);
 });
 
-test('retrieve user', async ({ request }) => {
-  const createUserBody = await PwHelpers.createDefaultUser(request);
-  const newUserId = createUserBody.id;
+test('retrieve resident', async ({ request }) => {
+  const createResidentBody = await PwHelpers.createDefaultResident(request);
+  const newResidentId = createResidentBody.id;
 
-  const response = await request.get(`/api/users/${newUserId}`);
+  const response = await request.get(`/api/residents/${newResidentId}`);
 
   expect(response.ok()).toBeTruthy();
 
@@ -53,24 +53,24 @@ test('retrieve user', async ({ request }) => {
 
   expect(Number.isInteger(body.id)).toBeTruthy();
 
-  expect(body.id).toBe(newUserId);
+  expect(body.id).toBe(newResidentId);
 });
 
-test('update user', async ({ request }) => {
-  const createUserBody = await PwHelpers.createDefaultUser(request);
+test('update resident', async ({ request }) => {
+  const createResidentBody = await PwHelpers.createDefaultResident(request);
 
   const inputData = {
-    id: createUserBody.id,
+    id: createResidentBody.id,
     firstName: 'Jane',
     lastName: 'Smith',
     gender: 'F',
     age: 33,
     weight: 155.1,
     income: 40000.0,
-    stateId: createUserBody.id,
+    stateId: createResidentBody.id,
   };
 
-  const response = await request.put(`/api/users/${inputData.id}`, { data: inputData });
+  const response = await request.put(`/api/residents/${inputData.id}`, { data: inputData });
 
   expect(response.ok()).toBeTruthy();
 
@@ -83,14 +83,14 @@ test('update user', async ({ request }) => {
   expect(body.age).toBe(inputData.age);
   expect(body.weight).toBe(inputData.weight);
   expect(body.income).toBe(inputData.income);
-  expect(body.stateId).toBe(createUserBody.id);
+  expect(body.stateId).toBe(createResidentBody.id);
 });
 
-test('destroy user', async ({ request }) => {
-  const createUserBody = await PwHelpers.createDefaultUser(request);
-  const newUserId = createUserBody.id;
+test('destroy resident', async ({ request }) => {
+  const createResidentBody = await PwHelpers.createDefaultResident(request);
+  const newResidentId = createResidentBody.id;
 
-  const response = await request.delete(`/api/users/${newUserId}`);
+  const response = await request.delete(`/api/residents/${newResidentId}`);
 
   expect(response.ok()).toBeTruthy();
 

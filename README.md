@@ -35,26 +35,26 @@ PUT /api/states/:id
 DELETE /api/states/:id
 ```
 
-#### User CRUD
+#### Resident CRUD
 
 ```
-GET /api/users
-POST /api/users
+GET /api/residents
+POST /api/residents
 
-GET /api/users/:id
-PUT /api/users/:id
-DELETE /api/users/:id
+GET /api/residents/:id
+PUT /api/residents/:id
+DELETE /api/residents/:id
 ```
 
-#### User Retrieval by State ID
+#### Resident Retrieval by State ID
 
 ```
-GET /api/states/:id/users
+GET /api/states/:id/residents
 ```
 
 #### State Summary Retrieval
 
-(Aggregated User data by State)
+(Aggregated Resident data by State)
 
 ```
 GET /api/states/summary

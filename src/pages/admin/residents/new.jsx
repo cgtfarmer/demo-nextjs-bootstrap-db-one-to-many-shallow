@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Form, Button } from 'react-bootstrap';
 
@@ -12,38 +12,9 @@ function Page() {
   const [stateId, setStateId] = useState('');
 
   const router = useRouter();
-  const { id } = router.query;
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch(`/api/users/${id}`, {
-        method: 'GET',
-      });
-
-      console.log(response);
-
-      if (response.ok) {
-        const userData = await response.json();
-
-        setFirstName(userData.firstName);
-        setLastName(userData.lastName);
-        setGender(userData.gender);
-        setAge(userData.age);
-        setWeight(userData.weight);
-        setIncome(userData.income);
-        setStateId(userData.stateId);
-      } else {
-        console.error(response);
-      }
-    };
-
-    if (id == undefined) return;
-
-    fetchUser();
-  }, [id]);
-
-  const sendUpdateUserRequest = async () => {
-    const updatedUser = {
+  const sendCreateResidentRequest = async () => {
+    const newResident = {
       firstName: firstName,
       lastName: lastName,
       gender: gender,
@@ -53,17 +24,17 @@ function Page() {
       stateId: stateId,
     };
 
-    const response = await fetch(`/api/users/${id}`, {
-      method: 'PUT',
+    const response = await fetch('/api/residents', {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedUser)
+      body: JSON.stringify(newResident)
     });
 
     if (response.ok) {
-      const createdUser = await response.json();
-      console.log(`Updated user: ${JSON.stringify(createdUser)}`);
+      const createdResident = await response.json();
+      console.log(`Created resident: ${JSON.stringify(createdResident)}`);
 
-      router.push(`/admin/users/${id}`);
+      router.push('/admin/residents');
     } else {
       console.error(response);
     }
@@ -71,7 +42,7 @@ function Page() {
 
   return (
     <>
-      <h1 className="display-6 my-3 mb-4">Edit User</h1>
+      <h1 className="display-6 my-3 mb-4">Create Resident</h1>
 
       <Form className="mt-3">
         <Form.Group controlId="first-name">
@@ -138,7 +109,12 @@ function Page() {
           />
         </Form.Group>
 
-        <Button className="mt-3" variant="primary" type="button" onClick={sendUpdateUserRequest}>
+        <Button
+          className="mt-3"
+          variant="primary"
+          type="button"
+          onClick={sendCreateResidentRequest}
+        >
           Submit
         </Button>
       </Form>

@@ -6,7 +6,7 @@ USE myDatabase;
 
 DROP TABLE IF EXISTS states;
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS residents;
 
 CREATE TABLE states (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -14,7 +14,7 @@ CREATE TABLE states (
   symbol VARCHAR(255)
 );
 
-CREATE TABLE users (
+CREATE TABLE residents (
   id INT AUTO_INCREMENT PRIMARY KEY,
   firstName VARCHAR(255),
   lastName VARCHAR(255),
