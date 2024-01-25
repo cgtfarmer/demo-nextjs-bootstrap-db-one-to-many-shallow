@@ -1,5 +1,5 @@
 {
-  "name": "demo-nextjs-clean-architecture-static",
+  "name": "demo-nextjs-bootstrap-db-one-to-many-shallow",
   "version": "0.1.0",
   "private": true,
   "scripts": {
