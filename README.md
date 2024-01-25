@@ -20,7 +20,10 @@ Run: `docker-compose down; docker-compose up -d mysql; sleep 20; docker-compose 
 ## Run Playwright Tests (w/ Stack Reuse)
 
 - Leave dev stack running
-- Run in another terminal: `docker-compose exec app npm run test-e2e-debug` (repeat as needed)
+- Run in another terminal: `docker-compose exec app npm run test-e2e` (repeat as needed)
+- Or: `docker-compose run --rm playwright npx playwright test --debug` (repeat as needed)
+- Or: `docker-compose run --rm playwright npx playwright test file.test.js --debug` (repeat as needed)
+- Or: `docker-compose run --rm playwright npx playwright test -g "create user" --debug` (repeat as needed)
 
 ### Endpoints
 
